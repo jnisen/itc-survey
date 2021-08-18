@@ -1,16 +1,17 @@
 export { }
 
 const fs = require("fs");
+const jwt = require('jwt-simple');
 
 import { User} from '../models/users'
-
+import { secret } from './secrets/secret';
 
 export const readAllUsers = () => {
     const allUsers = fs.readFileSync("./models/data/user.json");
     return JSON.parse(allUsers);
 }
 
-
+let tokenUser;
 export function usersRegister(req, res) {
     try {
 
@@ -57,7 +58,10 @@ export function loginUser(req, res) {
             const userLogin = allUsers.find(elem => (elem.email === email) && (elem.password === password))
 
             if(userLogin.username){
-                res.cookie('cookieName', JSON.stringify(userLogin), { maxAge: 30000000, httpOnly: true });
+
+                tokenUser = jwt.encode(userLogin,secret)
+
+                res.cookie('cookieName', tokenUser, { maxAge: 30000000, httpOnly: true });
                 res.send({ ok: `Welcome ${userLogin.username}`});
             }else{
                 throw new Error("You're on the database but without username, please go to register")
@@ -87,7 +91,14 @@ export function endUserLogin(req, res) {
         const isUserOk = allUsers.some(elem => (elem.email === email) && (elem.password === password))
         const isEmailOrPasswordWrong = allUsers.some(elem => (elem.email === email) || (elem.password === password))
 
-        res.cookie('cookieName', JSON.stringify(email), { maxAge: 30000000, httpOnly: true });
+       
+
+        tokenUser = jwt.encode(email,secret)
+
+
+        res.cookie('cookieName', tokenUser, { maxAge: 30000000, httpOnly: true });
+
+
 
         if (isUserOk) {
             const isAdminSurvey = allSurveys.find(survey => (survey.id === id) && (email === survey.admin))
@@ -116,10 +127,12 @@ export function endUserLogin(req, res) {
 
 export function getCookie(req, res) {
     try {
+        
         const { cookieName } = req.cookies
-        if (!cookieName) throw new Error("Nothing is on the cookie")
-        const cookie = JSON.parse(cookieName)
-        res.send(cookie);
+        //if (!cookieName) throw new Error("Nothing is on the cookie")
+        const decoded = jwt.decode(cookieName, secret);
+        res.send(decoded);
+
     } catch (e) {
         res.status(500).send({ error: `${e.message}` });
     }

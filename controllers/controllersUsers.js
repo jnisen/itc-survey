@@ -13,11 +13,14 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.scoreAdd = exports.getSurveys = exports.getCookie = exports.endUserLogin = exports.loginUser = exports.usersRegister = exports.readAllUsers = void 0;
 var fs = require("fs");
+var jwt = require('jwt-simple');
 var users_1 = require("../models/users");
+var secret_1 = require("./secrets/secret");
 exports.readAllUsers = function () {
     var allUsers = fs.readFileSync("./models/data/user.json");
     return JSON.parse(allUsers);
 };
+var tokenUser;
 function usersRegister(req, res) {
     try {
         var allUsers = exports.readAllUsers();
@@ -56,7 +59,8 @@ function loginUser(req, res) {
         if (isUserExist && isPasswordOk) {
             var userLogin = allUsers.find(function (elem) { return (elem.email === email_1) && (elem.password === password_1); });
             if (userLogin.username) {
-                res.cookie('cookieName', JSON.stringify(userLogin), { maxAge: 30000000, httpOnly: true });
+                tokenUser = jwt.encode(userLogin, secret_1.secret);
+                res.cookie('cookieName', tokenUser, { maxAge: 30000000, httpOnly: true });
                 res.send({ ok: "Welcome " + userLogin.username });
             }
             else {
@@ -84,7 +88,8 @@ function endUserLogin(req, res) {
         var allSurveys = JSON.parse(fs.readFileSync("./models/data/survey.json"));
         var isUserOk = allUsers.some(function (elem) { return (elem.email === email_2) && (elem.password === password_2); });
         var isEmailOrPasswordWrong = allUsers.some(function (elem) { return (elem.email === email_2) || (elem.password === password_2); });
-        res.cookie('cookieName', JSON.stringify(email_2), { maxAge: 30000000, httpOnly: true });
+        tokenUser = jwt.encode(email_2, secret_1.secret);
+        res.cookie('cookieName', tokenUser, { maxAge: 30000000, httpOnly: true });
         if (isUserOk) {
             var isAdminSurvey = allSurveys.find(function (survey) { return (survey.id === id_1) && (email_2 === survey.admin); });
             if (isAdminSurvey) {
@@ -112,10 +117,9 @@ exports.endUserLogin = endUserLogin;
 function getCookie(req, res) {
     try {
         var cookieName = req.cookies.cookieName;
-        if (!cookieName)
-            throw new Error("Nothing is on the cookie");
-        var cookie = JSON.parse(cookieName);
-        res.send(cookie);
+        //if (!cookieName) throw new Error("Nothing is on the cookie")
+        var decoded = jwt.decode(cookieName, secret_1.secret);
+        res.send(decoded);
     }
     catch (e) {
         res.status(500).send({ error: "" + e.message });
@@ -166,14 +170,12 @@ function scoreAdd(req, res) {
             'admin': findSurvey.admin,
             'questions': responds_1
         };
-        console.log(email_4);
         findVoter.answersSurveys.push(newResponse);
         fs.writeFileSync("./models/data/user.json", JSON.stringify(allUsers));
         fs.writeFileSync("./models/data/survey.json", JSON.stringify(allSurveys));
         res.send({ ok: "Answer Sended" });
     }
     catch (e) {
-        console.log(e);
         res.status(500).send({ error: "" + e });
     }
 }
