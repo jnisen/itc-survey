@@ -53,7 +53,7 @@ async function renderSurvey(arrayToRender, idSurvey) {
                 <div style="display:flex">
                     
                 <div>
-                    <input type="radio" id="one${count}" name="${index}" value="1" checked>
+                    <input type="radio" id="one${count}" name="${index}" value="1">
                     <label for="score${index}">1</label>
                 </div>
 
