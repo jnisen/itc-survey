@@ -79,7 +79,7 @@ async function renderSurvey(arrayToRender, idSurvey) {
             </div>  
             `
      
-            
+
 
         });
 
@@ -87,7 +87,7 @@ async function renderSurvey(arrayToRender, idSurvey) {
         sendButton.disabled = false;
     } else {
         arrayToRender.question.forEach((element, index) => {
-            console.log(element)
+        
             html += `<p style="font-weight:bold">Question ${index + 1}: <span>${element.title}</span></p>`
             const voter = element.voters.filter(voter => voter.email === email)
             voter.forEach((element, index) => {
