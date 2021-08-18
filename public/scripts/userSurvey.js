@@ -80,8 +80,6 @@ async function renderSurvey(arrayToRender, idSurvey) {
             </div>  
             `
      
-
-
         });
 
 
