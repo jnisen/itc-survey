@@ -153,6 +153,7 @@ async function sendSurvey(ev) {
 }
 
 function redirectpage() {
-    window.location.replace("http://localhost:8000/surveyLogIn.html")
+    const location =  window.location.origin
+    window.location.replace(`${location}/surveyLogIn.html`)
 }
 
