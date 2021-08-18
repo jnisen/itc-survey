@@ -44,11 +44,11 @@ async function renderSurvey(arrayToRender, idSurvey) {
 
 
 
-    html += `<p>Survey Title: ${arrayToRender.title}</p>`
+    html += `<h2>Survey Title: ${arrayToRender.title}</h2>`
 
 
     if (!isCreatedbyAdmin) {
-        html += `<p>Pick the number. 1 is the lowest and 5 is the highest </p>`
+        html += `<h3><strong>Pick the number. 1 is the lowest and 5 is the highest  </strong></h3>`
         arrayToRender.question.forEach((question, index) => {
             html += `
         
@@ -85,7 +85,7 @@ async function renderSurvey(arrayToRender, idSurvey) {
 
         sendButton.disabled = false;
     } else {
-        html += `<h2>Thanks for coming back, this was your answer</h2>`
+        html += `<h3> <strong>Thanks for coming back, this was your answer </strong></h3>`
         arrayToRender.question.forEach((element, index) => {
            
             html += `<p style="font-weight:bold">Question ${index + 1}: <span>${element.title}</span></p>`
