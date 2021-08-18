@@ -91,7 +91,7 @@ async function renderSurvey(arrayToRender, idSurvey) {
             html += `<p style="font-weight:bold">Question ${index + 1}: <span>${element.title}</span></p>`
             const voter = element.voters.filter(voter => voter.email === email)
             voter.forEach((element, index) => {
-                html += `<span>Score ${element.score}</span>`
+                html += `<span>Score: ${element.score}</span>`
 
 
             });
