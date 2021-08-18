@@ -78,7 +78,8 @@ async function renderSurvey(arrayToRender, idSurvey) {
                 </div>
             </div>  
             `
-            count++;
+     
+            
 
         });
 
