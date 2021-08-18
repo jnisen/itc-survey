@@ -53,7 +53,7 @@ async function renderSurvey(arrayToRender, idSurvey) {
                 <div style="display:flex">
                     
                 <div>
-                    <input type="radio" id="one${count}" name="${index}" value="1">
+                    <input type="radio" id="one${count}" name="${index}" value="1" checked>
                     <label for="score${index}">1</label>
                 </div>
 
@@ -91,7 +91,6 @@ async function renderSurvey(arrayToRender, idSurvey) {
                         document.getElementById(`one${index + 1}`).checked = true;
                         break;
                     case 2:
-                        console.log(`two${index + 1}`)
                         document.getElementById(`two${index + 1}`).checked = true;
                         break;
                     case 3:
@@ -153,7 +152,7 @@ async function sendSurvey(ev) {
 }
 
 function redirectpage() {
-    const location =  window.location.origin
+       const location =  window.location.origin
     window.location.replace(`${location}/surveyLogIn.html`)
 }
 

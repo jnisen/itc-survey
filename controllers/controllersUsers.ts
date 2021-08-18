@@ -178,7 +178,6 @@ export function scoreAdd(req, res) {
             'questions': responds
         }
 
-        console.log(email);
         findVoter.answersSurveys.push(newResponse)
 
         fs.writeFileSync("./models/data/user.json", JSON.stringify(allUsers));
@@ -188,7 +187,6 @@ export function scoreAdd(req, res) {
 
 
     } catch (e) {
-        console.log(e)
         res.status(500).send({ error: `${e}` });
     }
 }
