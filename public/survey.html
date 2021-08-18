@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/0415b59e2e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./scss/style.min.css">
+    <title>Survey</title>
+</head>
+
+<body class="surveys" onload="getCookies(event)">
+    <header>
+        <button type="button" class="return">Return</button>
+        <div id="nameCookie"></div>
+    </header>
+    <div class="container__title">
+        <label>Title</label>
+        <input type="text" name="title" id="title" class="container__title--title" />
+
+    </div>
+    <main class="main">
+        <i class="fas fa-plus-circle boxquestion--circle"></i>
+    </main>
+    <div class="creater">
+        <button type="button" class="btncreate" disabled>CREATE</button>
+    </div>
+    <div style="display:flex;justify-content:center; margin-top:2em">
+        <a href="#" class="whatsapp"><button class="sendlink">Whatsapp <i class="fab fa-whatsapp-square"></i></button></a>
+    </div>
+    <script src="scripts/helpers/promises.js"></script>
+   <script src="scripts/survey.js"></script>
+</body>
+
+</html>

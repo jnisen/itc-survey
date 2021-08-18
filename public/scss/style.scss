@@ -1,0 +1,256 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.home {
+    background-color: lightgrey;
+
+    .container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+
+        &__btn {
+            padding: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: black;
+            color: whitesmoke;
+        }
+
+        &__btn:hover {
+            opacity: 0.7;
+        }
+
+        &__login {
+            margin-right: 2em;
+        }
+    }
+}
+
+.login {
+    background-color: lightgrey;
+
+    .container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        &__form {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            label,
+            input {
+                margin-top: 1em;
+            }
+
+            &--loginbtn {
+                background-color: black;
+                color: white;
+                padding: 1em;
+                cursor: pointer;
+
+            }
+
+        }
+    }
+}
+
+
+.register {
+    background-color: lightgrey;
+
+    .container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        &__form {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            label,
+            input {
+                margin-top: 1em;
+            }
+
+            &--registerbtn {
+                background-color: black;
+                color: white;
+                padding: 1em;
+                cursor: pointer;
+
+            }
+
+        }
+    }
+}
+
+.historial {
+    background-color: lightgrey;
+
+    header {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .survey {
+        position: absolute;
+        left: 50%;
+        top: 10%;
+        transform: translate(-50%, -50%);
+
+        &--btn {
+            background-color: black;
+            color: white;
+            padding: 0.7em;
+            cursor: pointer;
+        }
+
+        &--btn:hover {
+            opacity: 0.7;
+        }
+    }
+
+   
+
+    .surveys {
+        position: absolute;
+        top: 20%;
+        left: 30%;
+
+        .boxes {
+            display: flex;
+            align-items: center;
+        }
+
+
+
+
+        &__box {
+            border: 1px solid red;
+            width: 500px;
+            height: 75px;
+            margin-top: 1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .title {
+                position: relative;
+                left: 10%;
+            }
+
+            .answers {
+                position: relative;
+                right: 10%;
+            }
+
+
+
+        }
+    }
+
+
+}
+
+.surveys {
+    background-color: lightgrey;
+
+    .sendlink {
+        padding: 1em;
+        border-radius: 10px;
+        border:none;
+        position: relative;
+        left:-12%;
+        background-color: green;
+        color:white;
+        cursor: pointer;
+    }
+    .sendlink:hover{
+        opacity: 0.7;
+    }
+
+    i{
+        font-size:1.3rem;
+    
+    }
+
+    header {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .container__title {
+        margin-top: 1em;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        &--title {
+            margin-bottom: 1em;
+        }
+    }
+
+    .boxquestion {
+        margin-top: 2.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &--circle {
+            margin-right: 1em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        &--edit {
+            margin-left: 0.5em;
+        }
+
+        &--trash {
+            margin-left: 0.5em;
+        }
+
+    }
+
+    .creater {
+        display: flex;
+        justify-content: center;
+        margin-top: 1em;
+        position: relative;
+        left: -1%;
+
+        .btncreate {
+            background-color: black;
+            color: white;
+            padding: 0.7em;
+            cursor: not-allowed;
+        }
+
+        .btnedit {
+            background-color: black;
+            color: white;
+            padding: 0.7em;
+            cursor: pointer;
+        }
+
+        .btncreate:hover,
+        .btnedit:hover {
+            opacity: 0.7;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./scss/style.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/0415b59e2e.js" crossorigin="anonymous"></script>
+    <title>Historial</title>
+</head>
+
+<body class="historial" onload="getCookiesAndSurveys(event)">
+    <header>
+        <button type="button" class="return">Log Out</button>
+        <div id="nameCookie"></div>
+    </header>
+    <div class="survey">
+        <button type="button" class="survey--btn">Create Survey</button>
+    </div>
+    <div id="rootSurveys" class="surveys"></div>
+    <script src="scripts/historial.js"></script>
+</body>
+
+</html>

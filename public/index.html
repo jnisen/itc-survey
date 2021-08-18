@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <title>Home Page</title>
+</head>
+<style>
+  body {
+    height: 100vh;
+    background: #0062E6 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .img-left {
+    width: 45%;
+    background: url(https://www.secrettelaviv.com/wp-content/uploads/2019/02/71688_23722471_1024314554389508_5627443559938102679_n.png) center;
+    background-size: cover;
+  }
+
+  .card-body {
+    padding: 2rem;
+  }
+
+  .title {
+    margin-bottom: 2rem;
+
+  }
+
+  .form-box button[type="button"] {
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    background: #007bff;
+    color: #fff;
+    font-size: 90%;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    transition: 0.5s;
+    padding: 12px;
+  }
+
+  .form-box button[type="submit"]:hover {
+    background: #0069d9;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="row px-3">
+      <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+        <div class="img-left d-none d-md-flex"></div>
+        <div class="card-body">
+          <h4 class="title text-center mt-4">
+            Welcome
+          </h4>
+          <form class="form-box px-3">
+            <div class="mb-3">
+              <button type="button" class="btn btn-block text-uppercase container__login">
+                Login
+              </button>
+            </div>
+            <div class="mb-3">
+              <button type="button" class="btn btn-block text-uppercase container__register">
+                Register
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="scripts/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Survey User</title>
+   <script src="scripts/helpers/redirectPage.js"></script>
+</head>
+
+<body onload="getIdSurvey(event)">
+
+    <header>
+        <button type="button" class="return">Log Out</button>
+        <div id="nameCookie"></div>
+    </header>
+    <p>Pick the number. 1 is the lowest and 5 is the highest </p>
+    <form class="sumbit">
+        <div id="root"></div>
+
+        <button type="submit" style="margin-top:2em" class="send">Send</button>
+    </form>
+    <script src="scripts/helpers/promises.js"></script>
+   <script src="scripts/userSurvey.js"></script>
+</body>
+
+</html>
