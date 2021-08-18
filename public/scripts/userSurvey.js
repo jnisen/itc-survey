@@ -46,8 +46,10 @@ async function renderSurvey(arrayToRender, idSurvey) {
 
     html += `<p>Survey Title: ${arrayToRender.title}</p>`
 
-    arrayToRender.question.forEach((question, index) => {
-        html += `
+
+    if (!isCreatedbyAdmin) {
+        arrayToRender.question.forEach((question, index) => {
+            html += `
         
                 <p>Question ${count}: ${question.title}</p> 
                 <div style="display:flex">
@@ -76,44 +78,31 @@ async function renderSurvey(arrayToRender, idSurvey) {
                 </div>
             </div>  
             `
-        count++;
+            count++;
 
-    });
+        });
 
-    root.innerHTML = html;
 
-    if (isCreatedbyAdmin) {
-        arrayToRender.question.forEach(element => {
+        sendButton.disabled = false;
+    } else {
+        arrayToRender.question.forEach((element, index) => {
+            console.log(element)
+            html += `<p style="font-weight:bold">Question ${index + 1}: <span>${element.title}</span></p>`
             const voter = element.voters.filter(voter => voter.email === email)
             voter.forEach((element, index) => {
-                switch (element.score) {
-                    case 1:
-                        document.getElementById(`one${index + 1}`).checked = true;
-                        break;
-                    case 2:
-                        document.getElementById(`two${index + 1}`).checked = true;
-                        break;
-                    case 3:
-                        document.getElementById(`three${index + 1}`).checked = true;
-                        break;
-                    case 4:
-                        document.getElementById(`four${index + 1}`).checked = true;
-                        break;
-                    case 5:
-                        document.getElementById(`five${index + 1}`).checked = true;
-                        break;
-
-                }
+                html += `<span>Score ${element.score}</span>`
 
 
             });
         });
         sendButton.disabled = true;
         alert('Thanks for coming back, this was your answer')
-    } else {
-        sendButton.disabled = false;
+
     }
+
+    root.innerHTML = html;
 }
+
 
 
 async function sendSurvey(ev) {
@@ -152,7 +141,7 @@ async function sendSurvey(ev) {
 }
 
 function redirectpage() {
-       const location =  window.location.origin
+    const location = window.location.origin
     window.location.replace(`${location}/surveyLogIn.html`)
 }
 
