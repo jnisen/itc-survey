@@ -42,7 +42,7 @@ async function renderSurvey(arrayToRender, idSurvey) {
 
     let html = ''
 
-    let count = 1;
+
 
     html += `<p>Survey Title: ${arrayToRender.title}</p>`
 
@@ -51,29 +51,29 @@ async function renderSurvey(arrayToRender, idSurvey) {
         arrayToRender.question.forEach((question, index) => {
             html += `
         
-                <p>Question ${count}: ${question.title}</p> 
+                <p>Question ${index+1}: ${question.title}</p> 
                 <div style="display:flex">
                     
                 <div>
-                    <input type="radio" id="one${count}" name="${index}" value="1" checked>
+                    <input type="radio" id="one${index}" name="${index}" value="1" checked>
                     <label for="score${index}">1</label>
                 </div>
 
                 <div>
-                    <input type="radio" id="two${count}" name="${index}" value="2" >
+                    <input type="radio" id="two${index}" name="${index}" value="2" >
                     <label for="score${index}">2</label>
                 </div>
 
                 <div>
-                    <input type="radio" id="three${count}" name="${index}" value="3">
+                    <input type="radio" id="three${index}" name="${index}" value="3">
                      <label for="score${index}">3</label>
                 </div>
                 <div>
-                    <input type="radio" id="four${count}" name="${index}" value="4">
+                    <input type="radio" id="four${index}" name="${index}" value="4">
                     <label for="score${index}">4</label>
                 </div>
                 <div>
-                    <input type="radio" id="five${count}" name="${index}" value="5">
+                    <input type="radio" id="five${index}" name="${index}" value="5">
                     <label for="score${index}">5</label>
                 </div>
             </div>  
