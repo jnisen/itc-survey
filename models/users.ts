@@ -18,35 +18,3 @@ export class User {
     }
 
 }
-
-
-// const readAllUsers = () => {
-//     const allUsers = fs.readFileSync("./models/data/user.json");
-//     return JSON.parse(allUsers);
-// }
-
-
-// export class UserList {
-//     usersArray: Array<User> = [];
-
-//     constructor(){
-//         this.usersArray = readAllUsers()
-//     }
-    
-
-//     add(users: User) {
-//         try {
-//             this.usersArray.push(users);
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-
-// }
-
-
-// module.exports = {
-//     User: User,
-//     UserList: UserList,
-// };
-
