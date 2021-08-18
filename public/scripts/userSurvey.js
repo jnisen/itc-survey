@@ -87,8 +87,9 @@ async function renderSurvey(arrayToRender, idSurvey) {
 
         sendButton.disabled = false;
     } else {
+        html += `<h2>Thanks for coming back, this was your answer</h2>`
         arrayToRender.question.forEach((element, index) => {
-            html += `<h2>Thanks for coming back, this was your answer</h2>`
+           
             html += `<p style="font-weight:bold">Question ${index + 1}: <span>${element.title}</span></p>`
             const voter = element.voters.filter(voter => voter.email === email)
             voter.forEach((element, index) => {
