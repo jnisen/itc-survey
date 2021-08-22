@@ -70,6 +70,7 @@ export function deleteSurveys(req, res) {
         res.send(find.surveys);
 
 
+        
 
     } catch (e) {
         res.status(500).send({ error: `${e}` });
