@@ -156,7 +156,9 @@ export function scoreAdd(req, res) {
     try {
         const { id } = req.params
         const { cookieName } = req.cookies
-        const email = JSON.parse(cookieName)
+        const decoded = jwt.decode(cookieName, secret);
+
+        console.log(decoded);
 
         const allUsers = readAllUsers();
         const allSurveys = JSON.parse(fs.readFileSync("./models/data/survey.json"));
@@ -168,12 +170,12 @@ export function scoreAdd(req, res) {
         const findSurveyQuestions = findAdmin.surveys.find(survey => survey.id === id).questions
         const findSurveyinSurveyJSON = allSurveys.find(survey => survey.id === id).question
         for (let i = 0; i < findSurveyQuestions.length; i++) {
-            findSurveyQuestions[i].voters.push({ ...req.body[i], 'email': email })
-            findSurveyinSurveyJSON[i].voters.push({ ...req.body[i], 'email': email })
+            findSurveyQuestions[i].voters.push({ ...req.body[i], 'email': decoded })
+            findSurveyinSurveyJSON[i].voters.push({ ...req.body[i], 'email': decoded })
         }
 
         //voter
-        const findVoter = allUsers.find(voter => voter.email === email)
+        const findVoter = allUsers.find(voter => voter.email === decoded)
         const findSurvey = allSurveys.find(survey => survey.id === id)
 
         let responds = []

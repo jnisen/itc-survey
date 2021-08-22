@@ -113,8 +113,8 @@ async function sendSurvey(ev) {
     const responseSurvey = await axios.get('/survey/surveys')
     const { id } = responseSurvey.data
 
-    const responseUser = await axios.get('/user/getCookie')
-    const { email } = responseUser.data
+    // const responseUser = await axios.get('/user/getCookie')
+    // const { email } = responseUser.data
 
     const data = new FormData(form)
 
@@ -125,18 +125,21 @@ async function sendSurvey(ev) {
         })
     };
 
+    
 
     const params = new URLSearchParams(window.location.search);
     const idSurvey = params.get('surveyId');
 
     const responseAwait = await addScorePromise(scoreList, idSurvey)
 
+    console.log(responseAwait)
+
     const { ok } = responseAwait
-    alert(ok)
+     alert(ok)
 
     localStorage.setItem('isRedirect', JSON.stringify(1))
 
-    setTimeout('redirectpage()', 500)
+     setTimeout('redirectpage()', 500)
 
 }
 

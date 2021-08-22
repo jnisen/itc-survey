@@ -145,7 +145,8 @@ function scoreAdd(req, res) {
     try {
         var id_2 = req.params.id;
         var cookieName = req.cookies.cookieName;
-        var email_4 = JSON.parse(cookieName);
+        var decoded_1 = jwt.decode(cookieName, secret_1.secret);
+        console.log(decoded_1);
         var allUsers = exports.readAllUsers();
         var allSurveys = JSON.parse(fs.readFileSync("./models/data/survey.json"));
         //admin
@@ -154,11 +155,11 @@ function scoreAdd(req, res) {
         var findSurveyQuestions = findAdmin.surveys.find(function (survey) { return survey.id === id_2; }).questions;
         var findSurveyinSurveyJSON = allSurveys.find(function (survey) { return survey.id === id_2; }).question;
         for (var i = 0; i < findSurveyQuestions.length; i++) {
-            findSurveyQuestions[i].voters.push(__assign(__assign({}, req.body[i]), { 'email': email_4 }));
-            findSurveyinSurveyJSON[i].voters.push(__assign(__assign({}, req.body[i]), { 'email': email_4 }));
+            findSurveyQuestions[i].voters.push(__assign(__assign({}, req.body[i]), { 'email': decoded_1 }));
+            findSurveyinSurveyJSON[i].voters.push(__assign(__assign({}, req.body[i]), { 'email': decoded_1 }));
         }
         //voter
-        var findVoter = allUsers.find(function (voter) { return voter.email === email_4; });
+        var findVoter = allUsers.find(function (voter) { return voter.email === decoded_1; });
         var findSurvey = allSurveys.find(function (survey) { return survey.id === id_2; });
         var responds_1 = [];
         findSurvey.question.forEach(function (survey, index) {

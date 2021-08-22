@@ -45,7 +45,7 @@ function getIdSurvey(ev) {
 }
 
 function renderSurvey(arrayToRender, idSurvey) {
-  var root, responseCookie, email, response, isCreatedbyAdmin, html, count;
+  var root, responseCookie, email, response, isCreatedbyAdmin, html;
   return regeneratorRuntime.async(function renderSurvey$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -64,51 +64,31 @@ function renderSurvey(arrayToRender, idSurvey) {
           response = _context2.sent;
           isCreatedbyAdmin = response.data;
           html = '';
-          count = 1;
-          html += "<p>Survey Title: ".concat(arrayToRender.title, "</p>");
-          arrayToRender.question.forEach(function (question, index) {
-            html += "\n        \n                <p>Question ".concat(count, ": ").concat(question.title, "</p> \n                <div style=\"display:flex\">\n                    \n                <div>\n                    <input type=\"radio\" id=\"one").concat(count, "\" name=\"").concat(index, "\" value=\"1\" checked>\n                    <label for=\"score").concat(index, "\">1</label>\n                </div>\n\n                <div>\n                    <input type=\"radio\" id=\"two").concat(count, "\" name=\"").concat(index, "\" value=\"2\" >\n                    <label for=\"score").concat(index, "\">2</label>\n                </div>\n\n                <div>\n                    <input type=\"radio\" id=\"three").concat(count, "\" name=\"").concat(index, "\" value=\"3\">\n                     <label for=\"score").concat(index, "\">3</label>\n                </div>\n                <div>\n                    <input type=\"radio\" id=\"four").concat(count, "\" name=\"").concat(index, "\" value=\"4\">\n                    <label for=\"score").concat(index, "\">4</label>\n                </div>\n                <div>\n                    <input type=\"radio\" id=\"five").concat(count, "\" name=\"").concat(index, "\" value=\"5\">\n                    <label for=\"score").concat(index, "\">5</label>\n                </div>\n            </div>  \n            ");
-            count++;
-          });
-          root.innerHTML = html;
+          html += "<h2>Survey Title: ".concat(arrayToRender.title, "</h2>");
 
-          if (isCreatedbyAdmin) {
-            arrayToRender.question.forEach(function (element) {
+          if (!isCreatedbyAdmin) {
+            html += "<h3><strong>Pick the number. 1 is the lowest and 5 is the highest  </strong></h3>";
+            arrayToRender.question.forEach(function (question, index) {
+              html += "\n        \n                <p>Question ".concat(index + 1, ": ").concat(question.title, "</p> \n                <div style=\"display:flex\">\n                    \n                <div>\n                    <input type=\"radio\" id=\"one").concat(index, "\" name=\"").concat(index, "\" value=\"1\" checked>\n                    <label for=\"score").concat(index, "\">1</label>\n                </div>\n\n                <div>\n                    <input type=\"radio\" id=\"two").concat(index, "\" name=\"").concat(index, "\" value=\"2\" >\n                    <label for=\"score").concat(index, "\">2</label>\n                </div>\n\n                <div>\n                    <input type=\"radio\" id=\"three").concat(index, "\" name=\"").concat(index, "\" value=\"3\">\n                     <label for=\"score").concat(index, "\">3</label>\n                </div>\n                <div>\n                    <input type=\"radio\" id=\"four").concat(index, "\" name=\"").concat(index, "\" value=\"4\">\n                    <label for=\"score").concat(index, "\">4</label>\n                </div>\n                <div>\n                    <input type=\"radio\" id=\"five").concat(index, "\" name=\"").concat(index, "\" value=\"5\">\n                    <label for=\"score").concat(index, "\">5</label>\n                </div>\n            </div>  \n            ");
+            });
+            sendButton.disabled = false;
+          } else {
+            html += "<h3> <strong>Thanks for coming back, this was your answer </strong></h3>";
+            arrayToRender.question.forEach(function (element, index) {
+              html += "<p style=\"font-weight:bold\">Question ".concat(index + 1, ": <span>").concat(element.title, "</span></p>");
               var voter = element.voters.filter(function (voter) {
                 return voter.email === email;
               });
               voter.forEach(function (element, index) {
-                switch (element.score) {
-                  case 1:
-                    document.getElementById("one".concat(index + 1)).checked = true;
-                    break;
-
-                  case 2:
-                    console.log("two".concat(index + 1));
-                    document.getElementById("two".concat(index + 1)).checked = true;
-                    break;
-
-                  case 3:
-                    document.getElementById("three".concat(index + 1)).checked = true;
-                    break;
-
-                  case 4:
-                    document.getElementById("four".concat(index + 1)).checked = true;
-                    break;
-
-                  case 5:
-                    document.getElementById("five".concat(index + 1)).checked = true;
-                    break;
-                }
+                html += "<span>Score: ".concat(element.score, "</span>");
               });
             });
             sendButton.disabled = true;
-            alert('Thanks for coming back, this was your answer');
-          } else {
-            sendButton.disabled = false;
           }
 
-        case 15:
+          root.innerHTML = html;
+
+        case 13:
         case "end":
           return _context2.stop();
       }
@@ -117,7 +97,7 @@ function renderSurvey(arrayToRender, idSurvey) {
 }
 
 function sendSurvey(ev) {
-  var scoreList, responseSurvey, id, responseUser, email, data, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, entry, params, idSurvey, responseAwait, ok;
+  var scoreList, responseSurvey, id, data, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, entry, params, idSurvey, responseAwait, ok;
 
   return regeneratorRuntime.async(function sendSurvey$(_context3) {
     while (1) {
@@ -130,18 +110,14 @@ function sendSurvey(ev) {
 
         case 4:
           responseSurvey = _context3.sent;
-          id = responseSurvey.data.id;
-          _context3.next = 8;
-          return regeneratorRuntime.awrap(axios.get('/user/getCookie'));
+          id = responseSurvey.data.id; // const responseUser = await axios.get('/user/getCookie')
+          // const { email } = responseUser.data
 
-        case 8:
-          responseUser = _context3.sent;
-          email = responseUser.data.email;
           data = new FormData(form);
           _iteratorNormalCompletion = true;
           _didIteratorError = false;
           _iteratorError = undefined;
-          _context3.prev = 14;
+          _context3.prev = 10;
 
           for (_iterator = data[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             entry = _step.value;
@@ -151,61 +127,63 @@ function sendSurvey(ev) {
             });
           }
 
-          _context3.next = 22;
+          _context3.next = 18;
           break;
 
-        case 18:
-          _context3.prev = 18;
-          _context3.t0 = _context3["catch"](14);
+        case 14:
+          _context3.prev = 14;
+          _context3.t0 = _context3["catch"](10);
           _didIteratorError = true;
           _iteratorError = _context3.t0;
 
-        case 22:
-          _context3.prev = 22;
-          _context3.prev = 23;
+        case 18:
+          _context3.prev = 18;
+          _context3.prev = 19;
 
           if (!_iteratorNormalCompletion && _iterator["return"] != null) {
             _iterator["return"]();
           }
 
-        case 25:
-          _context3.prev = 25;
+        case 21:
+          _context3.prev = 21;
 
           if (!_didIteratorError) {
-            _context3.next = 28;
+            _context3.next = 24;
             break;
           }
 
           throw _iteratorError;
 
-        case 28:
-          return _context3.finish(25);
+        case 24:
+          return _context3.finish(21);
 
-        case 29:
-          return _context3.finish(22);
+        case 25:
+          return _context3.finish(18);
 
-        case 30:
+        case 26:
           ;
           params = new URLSearchParams(window.location.search);
           idSurvey = params.get('surveyId');
-          _context3.next = 35;
+          _context3.next = 31;
           return regeneratorRuntime.awrap(addScorePromise(scoreList, idSurvey));
 
-        case 35:
+        case 31:
           responseAwait = _context3.sent;
+          console.log(responseAwait);
           ok = responseAwait.ok;
           alert(ok);
           localStorage.setItem('isRedirect', JSON.stringify(1));
           setTimeout('redirectpage()', 500);
 
-        case 40:
+        case 37:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[14, 18, 22, 30], [23,, 25, 29]]);
+  }, null, null, [[10, 14, 18, 26], [19,, 21, 25]]);
 }
 
 function redirectpage() {
-  window.location.replace("http://localhost:8000/surveyLogIn.html");
+  var location = window.location.origin;
+  window.location.replace("".concat(location, "/surveyLogIn.html"));
 }
