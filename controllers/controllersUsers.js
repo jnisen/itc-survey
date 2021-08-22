@@ -20,7 +20,6 @@ exports.readAllUsers = function () {
     var allUsers = fs.readFileSync("./models/data/user.json");
     return JSON.parse(allUsers);
 };
-var tokenUser;
 function usersRegister(req, res) {
     try {
         var allUsers = exports.readAllUsers();
@@ -59,7 +58,7 @@ function loginUser(req, res) {
         if (isUserExist && isPasswordOk) {
             var userLogin = allUsers.find(function (elem) { return (elem.email === email_1) && (elem.password === password_1); });
             if (userLogin.username) {
-                tokenUser = jwt.encode(userLogin, secret_1.secret);
+                var tokenUser = jwt.encode(userLogin, secret_1.secret);
                 res.cookie('cookieName', tokenUser, { maxAge: 30000000, httpOnly: true });
                 res.send({ ok: "Welcome " + userLogin.username });
             }
@@ -88,7 +87,7 @@ function endUserLogin(req, res) {
         var allSurveys = JSON.parse(fs.readFileSync("./models/data/survey.json"));
         var isUserOk = allUsers.some(function (elem) { return (elem.email === email_2) && (elem.password === password_2); });
         var isEmailOrPasswordWrong = allUsers.some(function (elem) { return (elem.email === email_2) || (elem.password === password_2); });
-        tokenUser = jwt.encode(email_2, secret_1.secret);
+        var tokenUser = jwt.encode(email_2, secret_1.secret);
         res.cookie('cookieName', tokenUser, { maxAge: 30000000, httpOnly: true });
         if (isUserOk) {
             var isAdminSurvey = allSurveys.find(function (survey) { return (survey.id === id_1) && (email_2 === survey.admin); });
@@ -117,7 +116,8 @@ exports.endUserLogin = endUserLogin;
 function getCookie(req, res) {
     try {
         var cookieName = req.cookies.cookieName;
-        //if (!cookieName) throw new Error("Nothing is on the cookie")
+        if (!cookieName)
+            throw new Error("Nothing is on the cookie");
         var decoded = jwt.decode(cookieName, secret_1.secret);
         res.send(decoded);
     }

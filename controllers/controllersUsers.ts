@@ -11,7 +11,6 @@ export const readAllUsers = () => {
     return JSON.parse(allUsers);
 }
 
-let tokenUser;
 export function usersRegister(req, res) {
     try {
 
@@ -59,7 +58,7 @@ export function loginUser(req, res) {
 
             if(userLogin.username){
 
-                tokenUser = jwt.encode(userLogin,secret)
+                const tokenUser = jwt.encode(userLogin,secret)
 
                 res.cookie('cookieName', tokenUser, { maxAge: 30000000, httpOnly: true });
                 res.send({ ok: `Welcome ${userLogin.username}`});
@@ -93,7 +92,7 @@ export function endUserLogin(req, res) {
 
        
 
-        tokenUser = jwt.encode(email,secret)
+        const tokenUser = jwt.encode(email,secret)
 
 
         res.cookie('cookieName', tokenUser, { maxAge: 30000000, httpOnly: true });
@@ -129,7 +128,7 @@ export function getCookie(req, res) {
     try {
         
         const { cookieName } = req.cookies
-        //if (!cookieName) throw new Error("Nothing is on the cookie")
+        if (!cookieName) throw new Error("Nothing is on the cookie")
         const decoded = jwt.decode(cookieName, secret);
         res.send(decoded);
 
